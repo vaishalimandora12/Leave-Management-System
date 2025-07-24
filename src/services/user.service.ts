@@ -14,10 +14,10 @@ class userService {
         }
     }
 
-    
-    async find(){
+
+    async find(payload:Object){
         try {
-            return await db.userModel.find();
+            return await db.userModel.find(payload);
         } catch (error) {
             throw error;
         }
@@ -45,6 +45,31 @@ class userService {
         } catch (error) {
             throw error;
         }
+    }
+
+    async aggregatePaginate(aggregate: any[], option: { page: Number; limit: Number }) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    var myAggregate = db.userModel.aggregate(aggregate);
+                    var data = await db.userModel.aggregatePaginate(myAggregate, option);
+                    resolve(data);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+    async findAgents(payload?: any, option?: { page: Number; limit: Number }) {
+        let filter: any = [
+            {
+                $match:payload
+            },
+            {
+                $sort: { createdAt: -1 },
+            },
+        ];
+
+        return await this.aggregatePaginate(filter, option);
     }
 }
 

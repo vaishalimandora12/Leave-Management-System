@@ -35,6 +35,28 @@ class adminUserController {
         }
     }
 
+    async getAllAgents(req: any, res: Response) {
+        try {
+            let querys: any = req.query;
+            let query = {
+                page: parseInt(querys.page) || 1,
+                limit: parseInt(querys.limit) || 10,
+            };
+            let userData = await UserService.findAgents({role:enumType.role.agent},query);
+     
+            return res.status(_httpStatusService.status.OK).json({
+                status: _httpStatusService.status.OK,
+                message: "successfully.",
+                data: userData
+            });
+        } catch (error: any) {
+            return res.status(_httpStatusService.status.serverError).json({
+                status: _httpStatusService.status.serverError,
+                message: error.message,
+            });
+        }
+    }
+
 }
 
 export const AdminUserController = new adminUserController();

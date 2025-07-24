@@ -12,5 +12,6 @@ export const adminRoutes = [
 
     // User Management
     router.post("/private/addAgent", validations.admin.addAgent,errorResponse,controllers.admin.AdminUserController.addAgent),
+    router.post("/private/getAllAgents",controllers.admin.AdminUserController.getAllAgents),
 
 ];
