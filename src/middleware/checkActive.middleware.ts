@@ -80,6 +80,7 @@ export const JWT_token = async (req, res, next) => {
 
 export const checkAdminRole =async (req, res, next) => {
     const accessToken = await JsonWebTokenService._tokenDecode(req);
+    console.log(accessToken,"sssssssssssss")
     if (accessToken.role !== "admin") {
         return res.status(_httpStatusService.status.NotFound).json({ status: _httpStatusService.status.NotFound, message: "Access denied. Admin only." });
     }

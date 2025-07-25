@@ -14,4 +14,8 @@ export const adminRoutes = [
     router.post("/private/addAgent", validations.admin.addAgent,errorResponse,controllers.admin.AdminUserController.addAgent),
     router.post("/private/getAllAgents",controllers.admin.AdminUserController.getAllAgents),
 
+    // Leave Management
+    router.get("/private/allLeaveRequests",controllers.admin.AdminLeaveController.allLeaveRequests),
+    router.put("/private/changeLeaveStatus/:leaveId",validations.admin.leavestausUpdate,errorResponse,controllers.admin.AdminLeaveController.changeLeaveStatus)
+
 ];

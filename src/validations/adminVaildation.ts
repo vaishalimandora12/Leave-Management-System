@@ -107,3 +107,11 @@ export const addAgent = [
     check("password")
         .notEmpty().withMessage(_infoMessaage.required())
 ];
+
+export const leavestausUpdate = [
+    check("status")
+        .notEmpty().withMessage(_infoMessaage.required())
+        .isIn([enumType.leaveStatus.accepted, enumType.leaveStatus.rejected])
+        .withMessage("Invalid staus. Allowed values:'accepted','rejected'"),
+
+];

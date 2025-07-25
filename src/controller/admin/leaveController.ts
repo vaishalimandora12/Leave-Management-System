@@ -7,25 +7,20 @@ import  { LeaveService } from "../../services/leave.service";
 import { enumType } from "../../utils/enum";
 
 
-class adminUserController {
+class adminLeaveController {
 
-    async addAgent(req: any, res: Response) {
+    async allLeaveRequests(req: any, res: Response) {
         try {
-            const { firstName, lastName, password, email } = req.body;
-
-            const refData = {
-                role: enumType.role.agent,
-                firstName: firstName,
-                lastName: lastName,
-                password: password,
-                email: email,
+            let querys: any = req.query;
+            let query = {
+                page: parseInt(querys.page) || 1,
+                limit: parseInt(querys.limit) || 10,
             };
-            let userData = await UserService.create(refData);
-     
+            let data = await LeaveService.findAllLeaves(query);
             return res.status(_httpStatusService.status.OK).json({
                 status: _httpStatusService.status.OK,
-                message: "New Agent Added successfully.",
-                data: userData
+                message: "successs.",
+                data: data
             });
         } catch (error: any) {
             return res.status(_httpStatusService.status.serverError).json({
@@ -35,20 +30,21 @@ class adminUserController {
         }
     }
 
-    async getAllAgents(req: any, res: Response) {
+    async changeLeaveStatus(req: any, res: Response) {
         try {
-            let querys: any = req.query;
-            let query = {
-                page: parseInt(querys.page) || 1,
-                limit: parseInt(querys.limit) || 10,
-            };
-            let userData = await UserService.findAgents({role:enumType.role.agent},query);
-     
-            return res.status(_httpStatusService.status.OK).json({
+            const id = req.params.leaveId
+            let data = await LeaveService.updateOne(new mongoose.Types.ObjectId(id),{status:req.body.status});
+            if(req.body.status===enumType.leaveStatus.accepted){
+                return res.status(_httpStatusService.status.OK).json({
                 status: _httpStatusService.status.OK,
-                message: "successfully.",
-                data: userData
+                message: "Leave Accepted.",
             });
+            }else{
+                return res.status(_httpStatusService.status.OK).json({
+                    status: _httpStatusService.status.OK,
+                    message: "Leave Rejected.",
+                });
+            }
         } catch (error: any) {
             return res.status(_httpStatusService.status.serverError).json({
                 status: _httpStatusService.status.serverError,
@@ -59,5 +55,5 @@ class adminUserController {
 
 }
 
-export const AdminUserController = new adminUserController();
+export const AdminLeaveController = new adminLeaveController();
 

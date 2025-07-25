@@ -12,7 +12,7 @@ class Application {
             this._instance = express();
             this._instance.use(express.json());
 
-            this._instance.use("/api/admin/private/", JWT_token, check_active_user, check_session, checkAdminRole)
+            this._instance.use("/api/admin/private/", JWT_token, checkAdminRole,check_active_user, check_session)
             this._instance.use("/api/user/private/", JWT_token, check_active_user, check_session)
             this._instance.use("/api/admin/", adminRoutes);
             this._instance.use("/api/user/", userRoutes);

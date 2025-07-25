@@ -11,5 +11,10 @@ export const enumType = {
     BlockStatus:{
         blocked:"blocked",
         unBlocked:"unBlocked"
+    },
+    leaveStatus:{
+        pending:"pending",
+        accepted:"accepted",
+        rejected:"rejected",
     }
 };

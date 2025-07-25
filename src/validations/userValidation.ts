@@ -46,3 +46,16 @@ export const userLogin = [
     check("deviceName")
         .notEmpty().withMessage(_infoMessaage.required())
 ];
+
+
+
+export const applyLeave = [
+    check("fromDate")
+        .notEmpty().withMessage(_infoMessaage.required()),
+
+    check("toDate")
+        .notEmpty().withMessage(_infoMessaage.required()),
+
+    check("reason")
+        .notEmpty().withMessage(_infoMessaage.required())
+];
