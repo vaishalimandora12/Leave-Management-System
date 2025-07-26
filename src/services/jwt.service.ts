@@ -3,7 +3,7 @@ import { userModel } from "../model/user.model";
 import "dotenv/config";
 
 const JWT_KEY = "test";
-const JWT_EXPIRY = "360s";
+const JWT_EXPIRY = "3d";
 
 class jsonWebTokenService {
        createJwtToken(payload: any) {
