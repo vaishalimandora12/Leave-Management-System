@@ -10,5 +10,3 @@ export const connection = async () => {
         console.error("Database connection error:", error);
     }
 };
-
-export const conn = mongoose.connection;
